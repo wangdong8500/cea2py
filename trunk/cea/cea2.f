@@ -115,8 +115,11 @@ C LOCAL VARIABLES
       SAVE caseok,ensert,ex,i,inc,infile,iof,j,ln,n,ofile,prefix,readok,
      &  xi,xln
 C
-      WRITE (*,99001)
-      READ (*,99002) prefix
+C      WRITE (*,99001)
+C      READ (*,99002) prefix
+      CHARACTER(len=32) :: arg
+      CALL getarg(1, arg)
+      prefix=arg
       ln = INDEX(prefix,' ') - 1
       infile = prefix(1:ln)//'.inp'
       ofile = prefix(1:ln)//'.out'
