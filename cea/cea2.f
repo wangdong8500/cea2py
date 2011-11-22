@@ -100,6 +100,7 @@ C 01/30/04 - ROCKET: To correct points printed after fac, change
 C            IF(ipp.LE.Npp)ipp=ipp-1 to IF(ipp.LT.Npp.OR.Npp.EQ.4) ...
 C 02/05/04 - Chg. numbered ENDDO's to CONTINUE's for Watson compiler.
 C 05/21/04 - Added labels to columns in .plt file
+C 11/22/11 - Change I/O units from 7 & 8 to 5 (stdin)& 6. Plot disabled.
 C***********************************************************************
       IMPLICIT NONE
       INCLUDE 'cea.inc'
@@ -117,20 +118,20 @@ C LOCAL VARIABLES
 C
 C      WRITE (*,99001)
 C      READ (*,99002) prefix
-      CHARACTER(len=32) :: arg
-      CALL getarg(1, arg)
-      prefix=arg
-      ln = INDEX(prefix,' ') - 1
-      infile = prefix(1:ln)//'.inp'
-      ofile = prefix(1:ln)//'.out'
-      Pfile = prefix(1:ln)//'.plt'
-      INQUIRE (FILE=infile,EXIST=ex)
-      IF ( .NOT.ex ) THEN
-        PRINT *,infile,' DOES NOT EXIST'
-        GOTO 400
-      ENDIF
-      OPEN (IOINP,FILE=infile,STATUS='old',FORM='formatted')
-      OPEN (IOOUT,FILE=ofile,STATUS='unknown',FORM='formatted')
+C      CHARACTER(len=32) :: arg
+C      CALL getarg(1, arg)
+C      prefix=arg
+C      ln = INDEX(prefix,' ') - 1
+C      infile = prefix(1:ln)//'.inp'
+C      ofile = 'out.out'
+C      Pfile = 'plot.plt'
+C      INQUIRE (FILE=infile,EXIST=ex)
+C      IF ( .NOT.ex ) THEN
+C        PRINT *,infile,' DOES NOT EXIST'
+C        GOTO 400
+C      ENDIF
+C      OPEN (IOINP,FILE=infile,STATUS='old',FORM='formatted')
+C      OPEN (IOOUT,FILE=ofile,STATUS='unknown',FORM='formatted')
       OPEN (IOSCH,STATUS='scratch',FORM='unformatted')
       OPEN (IOTHM,FILE='thermo.lib',FORM='unformatted')
       OPEN (IOTRN,FILE='trans.lib',FORM='unformatted')
@@ -211,22 +212,22 @@ C INITIAL ESTIMATES
         ELSEIF ( Shock ) THEN
           CALL SHCK
         ENDIF
-        IF ( Nplt.GT.0 ) THEN
-          OPEN (IOPLT,FILE=Pfile,FORM='formatted')
-          WRITE (IOPLT,99009) (Pltvar(j),j=1,Nplt)
-          DO i = 1,Iplt
-            WRITE (IOPLT,99005) (Pltout(i,j),j=1,Nplt)
-          ENDDO
-          WRITE (IOPLT,99009) (Pltvar(j),j=1,Nplt)
-        ENDIF
+C        IF ( Nplt.GT.0 ) THEN
+C          OPEN (IOPLT,FILE=Pfile,FORM='formatted')
+C          WRITE (IOPLT,99009) (Pltvar(j),j=1,Nplt)
+C          DO i = 1,Iplt
+C            WRITE (IOPLT,99005) (Pltout(i,j),j=1,Nplt)
+C          ENDDO
+C          WRITE (IOPLT,99009) (Pltvar(j),j=1,Nplt)
+C        ENDIF
       ENDIF
  200  IF ( readok ) GOTO 100
- 300  CLOSE (IOINP)
-      CLOSE (IOOUT)
-      CLOSE (IOSCH)
+C 300  CLOSE (IOINP)
+C      CLOSE (IOOUT)
+ 300  CLOSE (IOSCH)
       CLOSE (IOTHM)
       CLOSE (IOTRN)
-      CLOSE (IOPLT)
+C      CLOSE (IOPLT)
  400  STOP
 99001 FORMAT (//' ENTER INPUT FILE NAME WITHOUT .inp EXTENSION.'/ 
      &        '   THE OUTPUT FILES FOR LISTING AND PLOTTING WILL HAVE',/
