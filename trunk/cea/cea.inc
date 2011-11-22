@@ -26,8 +26,8 @@ C    numbers are also defined in the manual, part2 p39, and may be
 C    adjusted as desired.
 C
       INTEGER IOSCH,IOTHM,IOPLT,IOTRN,IOINP,IOOUT
-      PARAMETER (IOINP= 7)
-      PARAMETER (IOOUT= 8)
+      PARAMETER (IOINP= 5)
+      PARAMETER (IOOUT= 6)
       PARAMETER (IOSCH=13)
       PARAMETER (IOTHM=14)
       PARAMETER (IOPLT=15)
